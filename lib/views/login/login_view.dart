@@ -5,23 +5,21 @@ import 'package:testapp/viewmodels/app/auth_viewmodel.dart';
 import 'package:testapp/viewmodels/login/login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
-  final LoginViewModel viewModel = locator<LoginViewModel>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Screen'),
       ),
-      body: buildLoginContents(viewModel),
+      body: buildLoginContents(),
     );
   }
 
-  Widget buildLoginContents(LoginViewModel viewModel) {
+  Widget buildLoginContents() {
     return ChangeNotifierProvider<LoginViewModel>(
-        create: (context) => viewModel,
+        create: (context) => locator<LoginViewModel>(),
         child: Consumer<LoginViewModel>(
-            builder: (context, model, child) => buildCenter(viewModel)));
+            builder: (context, model, child) => buildCenter(model)));
   }
 
   Center buildCenter(LoginViewModel viewModel) {
@@ -33,18 +31,19 @@ class LoginView extends StatelessWidget {
           TextField(
             decoration: InputDecoration(labelText: "enter your user Id"),
           ),
-          Consumer<AuthViewModel>(
-            builder: (context, value, child) => RaisedButton(
-              onPressed: () {
-                viewModel.login("123");
-                value.setAuthToken("bla");
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => MainView()),
-                // );
-              },
-              child: Text("Login"),
-            ),
+          RaisedButton(
+            onPressed: () {
+              if (viewModel.login("123")) {
+                var authViewModel = locator<AuthViewModel>();
+                authViewModel.setAuthToken("123");
+              }
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => MainView()),
+              // );
+            },
+            child: Text("Login"),
           )
         ],
       ),
