@@ -19,10 +19,10 @@ class LoginView extends StatelessWidget {
     return ChangeNotifierProvider<LoginViewModel>(
         create: (context) => locator<LoginViewModel>(),
         child: Consumer<LoginViewModel>(
-            builder: (context, model, child) => buildCenter(model)));
+            builder: (context, model, child) => buildCenter(context, model)));
   }
 
-  Center buildCenter(LoginViewModel viewModel) {
+  Center buildCenter(BuildContext context, LoginViewModel viewModel) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,14 +34,8 @@ class LoginView extends StatelessWidget {
           RaisedButton(
             onPressed: () {
               if (viewModel.login("123")) {
-                var authViewModel = locator<AuthViewModel>();
-                authViewModel.setAuthToken("123");
+                locator<AuthViewModel>().setAuthToken("123");
               }
-
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => MainView()),
-              // );
             },
             child: Text("Login"),
           )
