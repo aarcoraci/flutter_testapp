@@ -1,7 +1,7 @@
 // global viewmodel
 import 'package:testapp/viewmodels/base/base_viewmodel.dart';
 
-class TestAppViewModel extends BaseViewModel {
+class AuthViewModel extends BaseViewModel {
   String authToken;
   String username;
   String email;

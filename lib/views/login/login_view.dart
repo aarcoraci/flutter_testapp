@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/locator/service_locator.dart';
-import 'package:testapp/viewmodels/app/test_app_viewmodel.dart';
+import 'package:testapp/viewmodels/app/auth_viewmodel.dart';
 import 'package:testapp/viewmodels/login/login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
           TextField(
             decoration: InputDecoration(labelText: "enter your user Id"),
           ),
-          Consumer<TestAppViewModel>(
+          Consumer<AuthViewModel>(
             builder: (context, value, child) => RaisedButton(
               onPressed: () {
                 viewModel.login("123");
