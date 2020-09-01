@@ -17,6 +17,24 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   bool _showSearchBox = false;
 
+  Widget _getMainBuilder() {
+    if (_showSearchBox) {
+      return Text(
+        "Custom Bars",
+      );
+    } else {
+      return TextField(
+        decoration: InputDecoration(
+            border: InputBorder.none, hintText: 'Enter a search term'),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _toggleSearch() {
     setState(() {
       this._showSearchBox = !this._showSearchBox;
@@ -26,12 +44,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext buildContext) {
     return AppBar(
-      title: _showSearchBox
-          ? TextField(
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: 'Enter a search term'),
-            )
-          : Text("Custom App Bar"),
+      title: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 450),
+        transitionBuilder: (Widget child, Animation<double> animation) =>
+            ScaleTransition(child: child, scale: animation),
+        child: _getMainBuilder(),
+      ),
       actions: <Widget>[
         IconButton(
           icon: _showSearchBox
