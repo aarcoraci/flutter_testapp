@@ -65,19 +65,22 @@ class _CustomAppBarState extends State<CustomAppBar> {
           Container(
             height: 56,
             alignment: Alignment.centerLeft,
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              switchInCurve: Curves.easeInOut,
-              switchOutCurve: Curves.easeOutSine,
-              transitionBuilder: (child, animation) => FadeTransition(
-                opacity: animation,
-                child: SlideTransition(
-                  child: child,
-                  position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
-                      .animate(animation),
+            child: ClipRect(
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                switchInCurve: Curves.easeInOut,
+                switchOutCurve: Curves.easeOutSine,
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                    child: child,
+                    position:
+                        Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
+                            .animate(animation),
+                  ),
                 ),
+                child: _getMainBuilder(),
               ),
-              child: _getMainBuilder(),
             ),
           )
         ],
