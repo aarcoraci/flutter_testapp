@@ -25,15 +25,22 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: AnimatedOpacity(
               opacity: _showSearchBox ? 0.0 : 1,
               duration: Duration(milliseconds: 100),
-              child: Text("Hey"),
+              child: Text("Regular App Bar"),
             ),
           )
         ],
       );
     } else {
       return TextField(
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-            border: InputBorder.none, hintText: 'Enter a search term'),
+            isDense: true,
+            hintMaxLines: 1,
+            enabled: true,
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
+            hintStyle: TextStyle(color: Color.fromARGB(200, 255, 255, 255)),
+            hintText: 'Search...'),
       );
     }
   }

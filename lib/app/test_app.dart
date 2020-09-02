@@ -28,6 +28,14 @@ class TestApp extends StatelessWidget {
         create: (context) => viewModel);
   }
 
+  Widget _getCurrentPage(AuthViewModel authViewModel) {
+    if (authViewModel.authToken == null) {
+      return LoginView();
+    } else {
+      return MainView();
+    }
+  }
+
 // app
   Widget buildApp() {
     return MaterialApp(
@@ -37,8 +45,7 @@ class TestApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Consumer<AuthViewModel>(
-        builder: (context, value, child) =>
-            value.authToken == null ? LoginView() : MainView(),
+        builder: (context, value, child) => _getCurrentPage(value),
       ),
     );
   }
