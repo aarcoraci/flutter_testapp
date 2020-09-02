@@ -18,9 +18,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
   bool _showSearchBox = false;
 
   Widget _getMainBuilder() {
-    if (_showSearchBox) {
-      return Text(
-        "Custom Bars",
+    if (!_showSearchBox) {
+      return Row(
+        children: [
+          Expanded(
+            child: AnimatedOpacity(
+              opacity: _showSearchBox ? 0.0 : 1,
+              duration: Duration(milliseconds: 100),
+              child: Text("Hey"),
+            ),
+          )
+        ],
       );
     } else {
       return TextField(
@@ -44,11 +52,28 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext buildContext) {
     return AppBar(
-      title: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 450),
-        transitionBuilder: (Widget child, Animation<double> animation) =>
-            ScaleTransition(child: child, scale: animation),
-        child: _getMainBuilder(),
+      centerTitle: false,
+      title: Column(
+        children: [
+          Container(
+            height: 56,
+            alignment: Alignment.centerLeft,
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              switchInCurve: Curves.easeInOut,
+              switchOutCurve: Curves.easeOutSine,
+              transitionBuilder: (child, animation) => FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  child: child,
+                  position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
+                      .animate(animation),
+                ),
+              ),
+              child: _getMainBuilder(),
+            ),
+          )
+        ],
       ),
       actions: <Widget>[
         IconButton(
