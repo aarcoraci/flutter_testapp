@@ -90,11 +90,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
           icon: _showSearchBox
               ? const Icon(Icons.close)
               : const Icon(Icons.search),
-          tooltip: 'Show Snackbar',
+          tooltip: 'Toggle Search',
           onPressed: () {
             _toggleSearch();
           },
         ),
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          tooltip: 'Checkout',
+          onPressed: () {},
+        )
       ],
     );
   }
